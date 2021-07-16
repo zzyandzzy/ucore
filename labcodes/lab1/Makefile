@@ -8,6 +8,7 @@ V       := @
 #USELLVM := 1
 # try to infer the correct GCCPREFX
 # The result is `GCCPREFIX := `
+GCCPREFIX = 'i386-jos-elf-'
 ifndef GCCPREFIX
 GCCPREFIX := $(shell if i386-elf-objdump -i 2>&1 | grep '^elf32-i386$$' >/dev/null 2>&1; \
 	then echo 'i386-elf-'; \
@@ -225,14 +226,14 @@ qemu-nox: $(UCOREIMG)
 	$(V)$(QEMU)   -no-reboot -serial mon:stdio -hda $< -nographic
 TERMINAL        :=gnome-terminal
 debug: $(UCOREIMG)
-	$(V)$(QEMU) -S -s -parallel stdio -hda $< -serial null &
-	$(V)sleep 2
-	$(V)$(TERMINAL) -e "gdb -q -tui -x tools/gdbinit"
+	$(V)$(QEMU) -S -s -parallel stdio -hda $< -serial null 
+	# $(V)sleep 2
+	# $(V)$(TERMINAL) -e "gdb -q -tui -x tools/gdbinit"
 	
 debug-nox: $(UCOREIMG)
-	$(V)$(QEMU) -S -s -serial mon:stdio -hda $< -nographic &
-	$(V)sleep 2
-	$(V)$(TERMINAL) -e "gdb -q -x tools/gdbinit"
+	$(V)$(QEMU) -S -s -serial mon:stdio -hda $< -nographic
+	# $(V)sleep 2
+	# $(V)$(TERMINAL) -e "gdb -q -x tools/gdbinit"
 
 .PHONY: grade touch
 
