@@ -77,16 +77,76 @@ readseg(uintptr_t va, uint32_t count, uint32_t offset) {
     // If this is too slow, we could read lots of sectors at a time.
     // We'd write more to memory than asked, but it doesn't matter --
     // we load in increasing order.
-    for (; va < end_va; va += SECTSIZE, secno ++) {
-        readsect((void *)va, secno);
+    for (; va < end_va; va += SECTSIZE, secno++) {
+        readsect((void *) va, secno);
     }
 }
+
+//#define screen_width 80
+//#define screen_height 25
+//
+//void print_char(int8_t x, int8_t y, char c) {
+//    //wait x,y outcome ,then output str[i] !!!
+//    //very important algorithm processs!!!
+//    static int16_t *monitor_io_memory = (int16_t *) 0xb8000;
+//    int32_t idx = y * screen_width + x;
+//    //using '&' not '|' ,otherwise blink letters!!!
+//    monitor_io_memory[idx] = (monitor_io_memory[idx] & 0xFF00) | c;
+//}
+
+//void clear_screen() {
+//    //rows
+//    for (uint8_t y = 0; y < screen_height; y++) {
+//        //cols
+//        for (uint8_t x = 0; x < screen_width; x++) {
+//            print_char(x, y, '\0');
+//        }
+//    }
+//}
+//
+
+//void printf(char *str) {
+//    //y-->rows,x-->cols
+//    static u8 x = 0, y = 0;
+//
+//    //写入字符串，取或0xff00的意思是我们需要把屏幕高四位拉低，
+//    //否则就是黑色的字体，黑色的字体黑色的屏幕是啥也看不到的
+//    for (int i = 0; str[i] != '\0'; ++i) {
+//        //fistly check letter
+//        switch (str[i]) {
+//            case '\n':
+//                y++;//checkout rows not output!!!
+//                x = 0;
+//                break;
+//            default:
+//                //firstly,check pos
+//                if (x >= screen_width) {
+//                    y++;
+//                    x = 0;
+//                }
+//                if (y >= screen_height) {
+//                    clear_screen();
+//                    x = 0;
+//                    y = 0;
+//                }
+//                //wait x,y outcome ,then output str[i] !!!
+//                //very important algorithm processs!!!
+//                print_char(x, y, str[i]);
+//                x++;
+//
+//        }
+//    }
+//}
 
 /* bootmain - the entry of bootloader */
 void
 bootmain(void) {
+    static int16_t *monitor_io_memory = (int16_t *) 0xb8000;
+    char *err;
+    static const int start_pos = 640;
+    int i = 0;
     // read the 1st page off disk
-    readseg((uintptr_t)ELFHDR, SECTSIZE * 8, 0);
+    readseg((uintptr_t) ELFHDR, SECTSIZE * 8, 0);
 
     // is this a valid ELF?
     if (ELFHDR->e_magic != ELF_MAGIC) {
@@ -96,17 +156,24 @@ bootmain(void) {
     struct proghdr *ph, *eph;
 
     // load each program segment (ignores ph flags)
-    ph = (struct proghdr *)((uintptr_t)ELFHDR + ELFHDR->e_phoff);
+    ph = (struct proghdr *) ((uintptr_t) ELFHDR + ELFHDR->e_phoff);
     eph = ph + ELFHDR->e_phnum;
-    for (; ph < eph; ph ++) {
+    for (; ph < eph; ph++) {
         readseg(ph->p_va & 0xFFFFFF, ph->p_memsz, ph->p_offset);
     }
 
     // call the entry point from the ELF header
     // note: does not return
-    ((void (*)(void))(ELFHDR->e_entry & 0xFFFFFF))();
+    ((void (*)(void)) (ELFHDR->e_entry & 0xFFFFFF))();
 
-bad:
+    bad:
+    // 下面注释打开可以打印字符
+//    err = "err";
+//    while (i < 3) {
+//        monitor_io_memory[start_pos + i] =
+//                (monitor_io_memory[start_pos + i] & 0xFC00) | err[i];
+//        i++;
+//    }
     outw(0x8A00, 0x8A00);
     outw(0x8A00, 0x8E00);
 

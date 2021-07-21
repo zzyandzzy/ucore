@@ -11,7 +11,7 @@
 static void
 cputch(int c, int *cnt) {
     cons_putc(c);
-    (*cnt) ++;
+    (*cnt)++;
 }
 
 /* *
@@ -26,7 +26,7 @@ cputch(int c, int *cnt) {
 int
 vcprintf(const char *fmt, va_list ap) {
     int cnt = 0;
-    vprintfmt((void*)cputch, &cnt, fmt, ap);
+    vprintfmt((void *) cputch, &cnt, fmt, ap);
     return cnt;
 }
 
@@ -60,7 +60,7 @@ int
 cputs(const char *str) {
     int cnt = 0;
     char c;
-    while ((c = *str ++) != '\0') {
+    while ((c = *str++) != '\0') {
         cputch(c, &cnt);
     }
     cputch('\n', &cnt);

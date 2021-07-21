@@ -1,0 +1,670 @@
+cmake_minimum_required(VERSION 3.19)
+project(ucore C)
+
+set(CMAKE_C_STANDARD 11)
+
+include_directories(labcodes/lab2/boot)
+include_directories(labcodes/lab2/kern/debug)
+include_directories(labcodes/lab2/kern/driver)
+include_directories(labcodes/lab2/kern/mm)
+include_directories(labcodes/lab2/kern/sync)
+include_directories(labcodes/lab2/kern/trap)
+include_directories(labcodes/lab2/libs)
+include_directories(labcodes/lab3/boot)
+include_directories(labcodes/lab3/kern/debug)
+include_directories(labcodes/lab3/kern/driver)
+include_directories(labcodes/lab3/kern/fs)
+include_directories(labcodes/lab3/kern/mm)
+include_directories(labcodes/lab3/kern/sync)
+include_directories(labcodes/lab3/kern/trap)
+include_directories(labcodes/lab3/libs)
+include_directories(labcodes/lab4/boot)
+include_directories(labcodes/lab4/kern/debug)
+include_directories(labcodes/lab4/kern/driver)
+include_directories(labcodes/lab4/kern/fs)
+include_directories(labcodes/lab4/kern/mm)
+include_directories(labcodes/lab4/kern/process)
+include_directories(labcodes/lab4/kern/schedule)
+include_directories(labcodes/lab4/kern/sync)
+include_directories(labcodes/lab4/kern/trap)
+include_directories(labcodes/lab4/libs)
+include_directories(labcodes/lab5/boot)
+include_directories(labcodes/lab5/kern/debug)
+include_directories(labcodes/lab5/kern/driver)
+include_directories(labcodes/lab5/kern/fs)
+include_directories(labcodes/lab5/kern/mm)
+include_directories(labcodes/lab5/kern/process)
+include_directories(labcodes/lab5/kern/schedule)
+include_directories(labcodes/lab5/kern/sync)
+include_directories(labcodes/lab5/kern/syscall)
+include_directories(labcodes/lab5/kern/trap)
+include_directories(labcodes/lab5/libs)
+include_directories(labcodes/lab5/user/libs)
+include_directories(labcodes/lab6/boot)
+include_directories(labcodes/lab6/kern/debug)
+include_directories(labcodes/lab6/kern/driver)
+include_directories(labcodes/lab6/kern/fs)
+include_directories(labcodes/lab6/kern/mm)
+include_directories(labcodes/lab6/kern/process)
+include_directories(labcodes/lab6/kern/schedule)
+include_directories(labcodes/lab6/kern/sync)
+include_directories(labcodes/lab6/kern/syscall)
+include_directories(labcodes/lab6/kern/trap)
+include_directories(labcodes/lab6/libs)
+include_directories(labcodes/lab6/user/libs)
+include_directories(labcodes/lab7/boot)
+include_directories(labcodes/lab7/kern/debug)
+include_directories(labcodes/lab7/kern/driver)
+include_directories(labcodes/lab7/kern/fs)
+include_directories(labcodes/lab7/kern/mm)
+include_directories(labcodes/lab7/kern/process)
+include_directories(labcodes/lab7/kern/schedule)
+include_directories(labcodes/lab7/kern/sync)
+include_directories(labcodes/lab7/kern/syscall)
+include_directories(labcodes/lab7/kern/trap)
+include_directories(labcodes/lab7/libs)
+include_directories(labcodes/lab7/user/libs)
+include_directories(labcodes/lab8/boot)
+include_directories(labcodes/lab8/kern/debug)
+include_directories(labcodes/lab8/kern/driver)
+include_directories(labcodes/lab8/kern/fs)
+include_directories(labcodes/lab8/kern/fs/devs)
+include_directories(labcodes/lab8/kern/fs/sfs)
+include_directories(labcodes/lab8/kern/fs/swap)
+include_directories(labcodes/lab8/kern/fs/vfs)
+include_directories(labcodes/lab8/kern/mm)
+include_directories(labcodes/lab8/kern/process)
+include_directories(labcodes/lab8/kern/schedule)
+include_directories(labcodes/lab8/kern/sync)
+include_directories(labcodes/lab8/kern/syscall)
+include_directories(labcodes/lab8/kern/trap)
+include_directories(labcodes/lab8/libs)
+include_directories(labcodes/lab8/user/libs)
+
+add_executable(ucore
+        labcodes/lab2/boot/asm.h
+        labcodes/lab2/boot/bootmain.c
+        labcodes/lab2/kern/debug/assert.h
+        labcodes/lab2/kern/debug/kdebug.c
+        labcodes/lab2/kern/debug/kdebug.h
+        labcodes/lab2/kern/debug/kmonitor.c
+        labcodes/lab2/kern/debug/kmonitor.h
+        labcodes/lab2/kern/debug/panic.c
+        labcodes/lab2/kern/debug/stab.h
+        labcodes/lab2/kern/driver/clock.c
+        labcodes/lab2/kern/driver/clock.h
+        labcodes/lab2/kern/driver/console.c
+        labcodes/lab2/kern/driver/console.h
+        labcodes/lab2/kern/driver/intr.c
+        labcodes/lab2/kern/driver/intr.h
+        labcodes/lab2/kern/driver/kbdreg.h
+        labcodes/lab2/kern/driver/picirq.c
+        labcodes/lab2/kern/driver/picirq.h
+        labcodes/lab2/kern/init/init.c
+        labcodes/lab2/kern/libs/readline.c
+        labcodes/lab2/kern/libs/stdio.c
+        labcodes/lab2/kern/mm/default_pmm.c
+        labcodes/lab2/kern/mm/default_pmm.h
+        labcodes/lab2/kern/mm/memlayout.h
+        labcodes/lab2/kern/mm/mmu.h
+        labcodes/lab2/kern/mm/pmm.c
+        labcodes/lab2/kern/mm/pmm.h
+        labcodes/lab2/kern/sync/sync.h
+        labcodes/lab2/kern/trap/trap.c
+        labcodes/lab2/kern/trap/trap.h
+        labcodes/lab2/libs/atomic.h
+        labcodes/lab2/libs/defs.h
+        labcodes/lab2/libs/elf.h
+        labcodes/lab2/libs/error.h
+        labcodes/lab2/libs/list.h
+        labcodes/lab2/libs/printfmt.c
+        labcodes/lab2/libs/stdarg.h
+        labcodes/lab2/libs/stdio.h
+        labcodes/lab2/libs/string.c
+        labcodes/lab2/libs/string.h
+        labcodes/lab2/libs/x86.h
+        labcodes/lab2/tools/sign.c
+        labcodes/lab2/tools/vector.c
+        labcodes/lab3/boot/asm.h
+        labcodes/lab3/boot/bootmain.c
+        labcodes/lab3/kern/debug/assert.h
+        labcodes/lab3/kern/debug/kdebug.c
+        labcodes/lab3/kern/debug/kdebug.h
+        labcodes/lab3/kern/debug/kmonitor.c
+        labcodes/lab3/kern/debug/kmonitor.h
+        labcodes/lab3/kern/debug/panic.c
+        labcodes/lab3/kern/debug/stab.h
+        labcodes/lab3/kern/driver/clock.c
+        labcodes/lab3/kern/driver/clock.h
+        labcodes/lab3/kern/driver/console.c
+        labcodes/lab3/kern/driver/console.h
+        labcodes/lab3/kern/driver/ide.c
+        labcodes/lab3/kern/driver/ide.h
+        labcodes/lab3/kern/driver/intr.c
+        labcodes/lab3/kern/driver/intr.h
+        labcodes/lab3/kern/driver/kbdreg.h
+        labcodes/lab3/kern/driver/picirq.c
+        labcodes/lab3/kern/driver/picirq.h
+        labcodes/lab3/kern/fs/fs.h
+        labcodes/lab3/kern/fs/swapfs.c
+        labcodes/lab3/kern/fs/swapfs.h
+        labcodes/lab3/kern/init/init.c
+        labcodes/lab3/kern/libs/readline.c
+        labcodes/lab3/kern/libs/stdio.c
+        labcodes/lab3/kern/mm/default_pmm.c
+        labcodes/lab3/kern/mm/default_pmm.h
+        labcodes/lab3/kern/mm/memlayout.h
+        labcodes/lab3/kern/mm/mmu.h
+        labcodes/lab3/kern/mm/pmm.c
+        labcodes/lab3/kern/mm/pmm.h
+        labcodes/lab3/kern/mm/swap.c
+        labcodes/lab3/kern/mm/swap.h
+        labcodes/lab3/kern/mm/swap_fifo.c
+        labcodes/lab3/kern/mm/swap_fifo.h
+        labcodes/lab3/kern/mm/vmm.c
+        labcodes/lab3/kern/mm/vmm.h
+        labcodes/lab3/kern/sync/sync.h
+        labcodes/lab3/kern/trap/trap.c
+        labcodes/lab3/kern/trap/trap.h
+        labcodes/lab3/libs/atomic.h
+        labcodes/lab3/libs/defs.h
+        labcodes/lab3/libs/elf.h
+        labcodes/lab3/libs/error.h
+        labcodes/lab3/libs/list.h
+        labcodes/lab3/libs/printfmt.c
+        labcodes/lab3/libs/rand.c
+        labcodes/lab3/libs/stdarg.h
+        labcodes/lab3/libs/stdio.h
+        labcodes/lab3/libs/stdlib.h
+        labcodes/lab3/libs/string.c
+        labcodes/lab3/libs/string.h
+        labcodes/lab3/libs/x86.h
+        labcodes/lab3/tools/sign.c
+        labcodes/lab3/tools/vector.c
+        labcodes/lab4/boot/asm.h
+        labcodes/lab4/boot/bootmain.c
+        labcodes/lab4/kern/debug/assert.h
+        labcodes/lab4/kern/debug/kdebug.c
+        labcodes/lab4/kern/debug/kdebug.h
+        labcodes/lab4/kern/debug/kmonitor.c
+        labcodes/lab4/kern/debug/kmonitor.h
+        labcodes/lab4/kern/debug/panic.c
+        labcodes/lab4/kern/debug/stab.h
+        labcodes/lab4/kern/driver/clock.c
+        labcodes/lab4/kern/driver/clock.h
+        labcodes/lab4/kern/driver/console.c
+        labcodes/lab4/kern/driver/console.h
+        labcodes/lab4/kern/driver/ide.c
+        labcodes/lab4/kern/driver/ide.h
+        labcodes/lab4/kern/driver/intr.c
+        labcodes/lab4/kern/driver/intr.h
+        labcodes/lab4/kern/driver/kbdreg.h
+        labcodes/lab4/kern/driver/picirq.c
+        labcodes/lab4/kern/driver/picirq.h
+        labcodes/lab4/kern/fs/fs.h
+        labcodes/lab4/kern/fs/swapfs.c
+        labcodes/lab4/kern/fs/swapfs.h
+        labcodes/lab4/kern/init/init.c
+        labcodes/lab4/kern/libs/readline.c
+        labcodes/lab4/kern/libs/stdio.c
+        labcodes/lab4/kern/mm/default_pmm.c
+        labcodes/lab4/kern/mm/default_pmm.h
+        labcodes/lab4/kern/mm/kmalloc.c
+        labcodes/lab4/kern/mm/kmalloc.h
+        labcodes/lab4/kern/mm/memlayout.h
+        labcodes/lab4/kern/mm/mmu.h
+        labcodes/lab4/kern/mm/pmm.c
+        labcodes/lab4/kern/mm/pmm.h
+        labcodes/lab4/kern/mm/swap.c
+        labcodes/lab4/kern/mm/swap.h
+        labcodes/lab4/kern/mm/swap_fifo.c
+        labcodes/lab4/kern/mm/swap_fifo.h
+        labcodes/lab4/kern/mm/vmm.c
+        labcodes/lab4/kern/mm/vmm.h
+        labcodes/lab4/kern/process/proc.c
+        labcodes/lab4/kern/process/proc.h
+        labcodes/lab4/kern/schedule/sched.c
+        labcodes/lab4/kern/schedule/sched.h
+        labcodes/lab4/kern/sync/sync.h
+        labcodes/lab4/kern/trap/trap.c
+        labcodes/lab4/kern/trap/trap.h
+        labcodes/lab4/libs/atomic.h
+        labcodes/lab4/libs/defs.h
+        labcodes/lab4/libs/elf.h
+        labcodes/lab4/libs/error.h
+        labcodes/lab4/libs/hash.c
+        labcodes/lab4/libs/list.h
+        labcodes/lab4/libs/printfmt.c
+        labcodes/lab4/libs/rand.c
+        labcodes/lab4/libs/stdarg.h
+        labcodes/lab4/libs/stdio.h
+        labcodes/lab4/libs/stdlib.h
+        labcodes/lab4/libs/string.c
+        labcodes/lab4/libs/string.h
+        labcodes/lab4/libs/x86.h
+        labcodes/lab4/tools/sign.c
+        labcodes/lab4/tools/vector.c
+        labcodes/lab5/boot/asm.h
+        labcodes/lab5/boot/bootmain.c
+        labcodes/lab5/kern/debug/assert.h
+        labcodes/lab5/kern/debug/kdebug.c
+        labcodes/lab5/kern/debug/kdebug.h
+        labcodes/lab5/kern/debug/kmonitor.c
+        labcodes/lab5/kern/debug/kmonitor.h
+        labcodes/lab5/kern/debug/panic.c
+        labcodes/lab5/kern/debug/stab.h
+        labcodes/lab5/kern/driver/clock.c
+        labcodes/lab5/kern/driver/clock.h
+        labcodes/lab5/kern/driver/console.c
+        labcodes/lab5/kern/driver/console.h
+        labcodes/lab5/kern/driver/ide.c
+        labcodes/lab5/kern/driver/ide.h
+        labcodes/lab5/kern/driver/intr.c
+        labcodes/lab5/kern/driver/intr.h
+        labcodes/lab5/kern/driver/kbdreg.h
+        labcodes/lab5/kern/driver/picirq.c
+        labcodes/lab5/kern/driver/picirq.h
+        labcodes/lab5/kern/fs/fs.h
+        labcodes/lab5/kern/fs/swapfs.c
+        labcodes/lab5/kern/fs/swapfs.h
+        labcodes/lab5/kern/init/init.c
+        labcodes/lab5/kern/libs/readline.c
+        labcodes/lab5/kern/libs/stdio.c
+        labcodes/lab5/kern/mm/default_pmm.c
+        labcodes/lab5/kern/mm/default_pmm.h
+        labcodes/lab5/kern/mm/kmalloc.c
+        labcodes/lab5/kern/mm/kmalloc.h
+        labcodes/lab5/kern/mm/memlayout.h
+        labcodes/lab5/kern/mm/mmu.h
+        labcodes/lab5/kern/mm/pmm.c
+        labcodes/lab5/kern/mm/pmm.h
+        labcodes/lab5/kern/mm/swap.c
+        labcodes/lab5/kern/mm/swap.h
+        labcodes/lab5/kern/mm/swap_fifo.c
+        labcodes/lab5/kern/mm/swap_fifo.h
+        labcodes/lab5/kern/mm/vmm.c
+        labcodes/lab5/kern/mm/vmm.h
+        labcodes/lab5/kern/process/proc.c
+        labcodes/lab5/kern/process/proc.h
+        labcodes/lab5/kern/schedule/sched.c
+        labcodes/lab5/kern/schedule/sched.h
+        labcodes/lab5/kern/sync/sync.h
+        labcodes/lab5/kern/syscall/syscall.c
+        labcodes/lab5/kern/syscall/syscall.h
+        labcodes/lab5/kern/trap/trap.c
+        labcodes/lab5/kern/trap/trap.h
+        labcodes/lab5/libs/atomic.h
+        labcodes/lab5/libs/defs.h
+        labcodes/lab5/libs/elf.h
+        labcodes/lab5/libs/error.h
+        labcodes/lab5/libs/hash.c
+        labcodes/lab5/libs/list.h
+        labcodes/lab5/libs/printfmt.c
+        labcodes/lab5/libs/rand.c
+        labcodes/lab5/libs/stdarg.h
+        labcodes/lab5/libs/stdio.h
+        labcodes/lab5/libs/stdlib.h
+        labcodes/lab5/libs/string.c
+        labcodes/lab5/libs/string.h
+        labcodes/lab5/libs/unistd.h
+        labcodes/lab5/libs/x86.h
+        labcodes/lab5/tools/sign.c
+        labcodes/lab5/tools/vector.c
+        labcodes/lab5/user/libs/panic.c
+        labcodes/lab5/user/libs/stdio.c
+        labcodes/lab5/user/libs/syscall.c
+        labcodes/lab5/user/libs/syscall.h
+        labcodes/lab5/user/libs/ulib.c
+        labcodes/lab5/user/libs/ulib.h
+        labcodes/lab5/user/libs/umain.c
+        labcodes/lab5/user/badarg.c
+        labcodes/lab5/user/badsegment.c
+        labcodes/lab5/user/divzero.c
+        labcodes/lab5/user/exit.c
+        labcodes/lab5/user/faultread.c
+        labcodes/lab5/user/faultreadkernel.c
+        labcodes/lab5/user/forktest.c
+        labcodes/lab5/user/forktree.c
+        labcodes/lab5/user/hello.c
+        labcodes/lab5/user/pgdir.c
+        labcodes/lab5/user/softint.c
+        labcodes/lab5/user/spin.c
+        labcodes/lab5/user/testbss.c
+        labcodes/lab5/user/waitkill.c
+        labcodes/lab5/user/yield.c
+        labcodes/lab6/boot/asm.h
+        labcodes/lab6/boot/bootmain.c
+        labcodes/lab6/kern/debug/assert.h
+        labcodes/lab6/kern/debug/kdebug.c
+        labcodes/lab6/kern/debug/kdebug.h
+        labcodes/lab6/kern/debug/kmonitor.c
+        labcodes/lab6/kern/debug/kmonitor.h
+        labcodes/lab6/kern/debug/panic.c
+        labcodes/lab6/kern/debug/stab.h
+        labcodes/lab6/kern/driver/clock.c
+        labcodes/lab6/kern/driver/clock.h
+        labcodes/lab6/kern/driver/console.c
+        labcodes/lab6/kern/driver/console.h
+        labcodes/lab6/kern/driver/ide.c
+        labcodes/lab6/kern/driver/ide.h
+        labcodes/lab6/kern/driver/intr.c
+        labcodes/lab6/kern/driver/intr.h
+        labcodes/lab6/kern/driver/kbdreg.h
+        labcodes/lab6/kern/driver/picirq.c
+        labcodes/lab6/kern/driver/picirq.h
+        labcodes/lab6/kern/fs/fs.h
+        labcodes/lab6/kern/fs/swapfs.c
+        labcodes/lab6/kern/fs/swapfs.h
+        labcodes/lab6/kern/init/init.c
+        labcodes/lab6/kern/libs/readline.c
+        labcodes/lab6/kern/libs/stdio.c
+        labcodes/lab6/kern/mm/default_pmm.c
+        labcodes/lab6/kern/mm/default_pmm.h
+        labcodes/lab6/kern/mm/kmalloc.c
+        labcodes/lab6/kern/mm/kmalloc.h
+        labcodes/lab6/kern/mm/memlayout.h
+        labcodes/lab6/kern/mm/mmu.h
+        labcodes/lab6/kern/mm/pmm.c
+        labcodes/lab6/kern/mm/pmm.h
+        labcodes/lab6/kern/mm/swap.c
+        labcodes/lab6/kern/mm/swap.h
+        labcodes/lab6/kern/mm/swap_fifo.c
+        labcodes/lab6/kern/mm/swap_fifo.h
+        labcodes/lab6/kern/mm/vmm.c
+        labcodes/lab6/kern/mm/vmm.h
+        labcodes/lab6/kern/process/proc.c
+        labcodes/lab6/kern/process/proc.h
+        labcodes/lab6/kern/schedule/default_sched.c
+        labcodes/lab6/kern/schedule/default_sched.h
+        labcodes/lab6/kern/schedule/sched.c
+        labcodes/lab6/kern/schedule/sched.h
+        labcodes/lab6/kern/sync/sync.h
+        labcodes/lab6/kern/syscall/syscall.c
+        labcodes/lab6/kern/syscall/syscall.h
+        labcodes/lab6/kern/trap/trap.c
+        labcodes/lab6/kern/trap/trap.h
+        labcodes/lab6/libs/atomic.h
+        labcodes/lab6/libs/defs.h
+        labcodes/lab6/libs/elf.h
+        labcodes/lab6/libs/error.h
+        labcodes/lab6/libs/hash.c
+        labcodes/lab6/libs/list.h
+        labcodes/lab6/libs/printfmt.c
+        labcodes/lab6/libs/rand.c
+        labcodes/lab6/libs/skew_heap.h
+        labcodes/lab6/libs/stdarg.h
+        labcodes/lab6/libs/stdio.h
+        labcodes/lab6/libs/stdlib.h
+        labcodes/lab6/libs/string.c
+        labcodes/lab6/libs/string.h
+        labcodes/lab6/libs/unistd.h
+        labcodes/lab6/libs/x86.h
+        labcodes/lab6/tools/sign.c
+        labcodes/lab6/tools/vector.c
+        labcodes/lab6/user/libs/panic.c
+        labcodes/lab6/user/libs/stdio.c
+        labcodes/lab6/user/libs/syscall.c
+        labcodes/lab6/user/libs/syscall.h
+        labcodes/lab6/user/libs/ulib.c
+        labcodes/lab6/user/libs/ulib.h
+        labcodes/lab6/user/libs/umain.c
+        labcodes/lab6/user/badarg.c
+        labcodes/lab6/user/badsegment.c
+        labcodes/lab6/user/divzero.c
+        labcodes/lab6/user/exit.c
+        labcodes/lab6/user/faultread.c
+        labcodes/lab6/user/faultreadkernel.c
+        labcodes/lab6/user/forktest.c
+        labcodes/lab6/user/forktree.c
+        labcodes/lab6/user/hello.c
+        labcodes/lab6/user/matrix.c
+        labcodes/lab6/user/pgdir.c
+        labcodes/lab6/user/priority.c
+        labcodes/lab6/user/softint.c
+        labcodes/lab6/user/spin.c
+        labcodes/lab6/user/testbss.c
+        labcodes/lab6/user/waitkill.c
+        labcodes/lab6/user/yield.c
+        labcodes/lab7/boot/asm.h
+        labcodes/lab7/boot/bootmain.c
+        labcodes/lab7/kern/debug/assert.h
+        labcodes/lab7/kern/debug/kdebug.c
+        labcodes/lab7/kern/debug/kdebug.h
+        labcodes/lab7/kern/debug/kmonitor.c
+        labcodes/lab7/kern/debug/kmonitor.h
+        labcodes/lab7/kern/debug/panic.c
+        labcodes/lab7/kern/debug/stab.h
+        labcodes/lab7/kern/driver/clock.c
+        labcodes/lab7/kern/driver/clock.h
+        labcodes/lab7/kern/driver/console.c
+        labcodes/lab7/kern/driver/console.h
+        labcodes/lab7/kern/driver/ide.c
+        labcodes/lab7/kern/driver/ide.h
+        labcodes/lab7/kern/driver/intr.c
+        labcodes/lab7/kern/driver/intr.h
+        labcodes/lab7/kern/driver/kbdreg.h
+        labcodes/lab7/kern/driver/picirq.c
+        labcodes/lab7/kern/driver/picirq.h
+        labcodes/lab7/kern/fs/fs.h
+        labcodes/lab7/kern/fs/swapfs.c
+        labcodes/lab7/kern/fs/swapfs.h
+        labcodes/lab7/kern/init/init.c
+        labcodes/lab7/kern/libs/readline.c
+        labcodes/lab7/kern/libs/stdio.c
+        labcodes/lab7/kern/mm/default_pmm.c
+        labcodes/lab7/kern/mm/default_pmm.h
+        labcodes/lab7/kern/mm/kmalloc.c
+        labcodes/lab7/kern/mm/kmalloc.h
+        labcodes/lab7/kern/mm/memlayout.h
+        labcodes/lab7/kern/mm/mmu.h
+        labcodes/lab7/kern/mm/pmm.c
+        labcodes/lab7/kern/mm/pmm.h
+        labcodes/lab7/kern/mm/swap.c
+        labcodes/lab7/kern/mm/swap.h
+        labcodes/lab7/kern/mm/swap_fifo.c
+        labcodes/lab7/kern/mm/swap_fifo.h
+        labcodes/lab7/kern/mm/vmm.c
+        labcodes/lab7/kern/mm/vmm.h
+        labcodes/lab7/kern/process/proc.c
+        labcodes/lab7/kern/process/proc.h
+        labcodes/lab7/kern/schedule/default_sched.c
+        labcodes/lab7/kern/schedule/default_sched.h
+        labcodes/lab7/kern/schedule/sched.c
+        labcodes/lab7/kern/schedule/sched.h
+        labcodes/lab7/kern/sync/check_sync.c
+        labcodes/lab7/kern/sync/monitor.c
+        labcodes/lab7/kern/sync/monitor.h
+        labcodes/lab7/kern/sync/sem.c
+        labcodes/lab7/kern/sync/sem.h
+        labcodes/lab7/kern/sync/sync.h
+        labcodes/lab7/kern/sync/wait.c
+        labcodes/lab7/kern/sync/wait.h
+        labcodes/lab7/kern/syscall/syscall.c
+        labcodes/lab7/kern/syscall/syscall.h
+        labcodes/lab7/kern/trap/trap.c
+        labcodes/lab7/kern/trap/trap.h
+        labcodes/lab7/libs/atomic.h
+        labcodes/lab7/libs/defs.h
+        labcodes/lab7/libs/elf.h
+        labcodes/lab7/libs/error.h
+        labcodes/lab7/libs/hash.c
+        labcodes/lab7/libs/list.h
+        labcodes/lab7/libs/printfmt.c
+        labcodes/lab7/libs/rand.c
+        labcodes/lab7/libs/skew_heap.h
+        labcodes/lab7/libs/stdarg.h
+        labcodes/lab7/libs/stdio.h
+        labcodes/lab7/libs/stdlib.h
+        labcodes/lab7/libs/string.c
+        labcodes/lab7/libs/string.h
+        labcodes/lab7/libs/unistd.h
+        labcodes/lab7/libs/x86.h
+        labcodes/lab7/tools/sign.c
+        labcodes/lab7/tools/vector.c
+        labcodes/lab7/user/libs/panic.c
+        labcodes/lab7/user/libs/stdio.c
+        labcodes/lab7/user/libs/syscall.c
+        labcodes/lab7/user/libs/syscall.h
+        labcodes/lab7/user/libs/ulib.c
+        labcodes/lab7/user/libs/ulib.h
+        labcodes/lab7/user/libs/umain.c
+        labcodes/lab7/user/badarg.c
+        labcodes/lab7/user/badsegment.c
+        labcodes/lab7/user/divzero.c
+        labcodes/lab7/user/exit.c
+        labcodes/lab7/user/faultread.c
+        labcodes/lab7/user/faultreadkernel.c
+        labcodes/lab7/user/forktest.c
+        labcodes/lab7/user/forktree.c
+        labcodes/lab7/user/hello.c
+        labcodes/lab7/user/matrix.c
+        labcodes/lab7/user/pgdir.c
+        labcodes/lab7/user/priority.c
+        labcodes/lab7/user/sleep.c
+        labcodes/lab7/user/sleepkill.c
+        labcodes/lab7/user/softint.c
+        labcodes/lab7/user/spin.c
+        labcodes/lab7/user/testbss.c
+        labcodes/lab7/user/waitkill.c
+        labcodes/lab7/user/yield.c
+        labcodes/lab8/boot/asm.h
+        labcodes/lab8/boot/bootmain.c
+        labcodes/lab8/kern/debug/assert.h
+        labcodes/lab8/kern/debug/kdebug.c
+        labcodes/lab8/kern/debug/kdebug.h
+        labcodes/lab8/kern/debug/kmonitor.c
+        labcodes/lab8/kern/debug/kmonitor.h
+        labcodes/lab8/kern/debug/panic.c
+        labcodes/lab8/kern/debug/stab.h
+        labcodes/lab8/kern/driver/clock.c
+        labcodes/lab8/kern/driver/clock.h
+        labcodes/lab8/kern/driver/console.c
+        labcodes/lab8/kern/driver/console.h
+        labcodes/lab8/kern/driver/ide.c
+        labcodes/lab8/kern/driver/ide.h
+        labcodes/lab8/kern/driver/intr.c
+        labcodes/lab8/kern/driver/intr.h
+        labcodes/lab8/kern/driver/kbdreg.h
+        labcodes/lab8/kern/driver/picirq.c
+        labcodes/lab8/kern/driver/picirq.h
+        labcodes/lab8/kern/fs/devs/dev.c
+        labcodes/lab8/kern/fs/devs/dev.h
+        labcodes/lab8/kern/fs/devs/dev_disk0.c
+        labcodes/lab8/kern/fs/devs/dev_stdin.c
+        labcodes/lab8/kern/fs/devs/dev_stdout.c
+        labcodes/lab8/kern/fs/sfs/bitmap.c
+        labcodes/lab8/kern/fs/sfs/bitmap.h
+        labcodes/lab8/kern/fs/sfs/sfs.c
+        labcodes/lab8/kern/fs/sfs/sfs.h
+        labcodes/lab8/kern/fs/sfs/sfs_fs.c
+        labcodes/lab8/kern/fs/sfs/sfs_inode.c
+        labcodes/lab8/kern/fs/sfs/sfs_io.c
+        labcodes/lab8/kern/fs/sfs/sfs_lock.c
+        labcodes/lab8/kern/fs/swap/swapfs.c
+        labcodes/lab8/kern/fs/swap/swapfs.h
+        labcodes/lab8/kern/fs/vfs/inode.c
+        labcodes/lab8/kern/fs/vfs/inode.h
+        labcodes/lab8/kern/fs/vfs/vfs.c
+        labcodes/lab8/kern/fs/vfs/vfs.h
+        labcodes/lab8/kern/fs/vfs/vfsdev.c
+        labcodes/lab8/kern/fs/vfs/vfsfile.c
+        labcodes/lab8/kern/fs/vfs/vfslookup.c
+        labcodes/lab8/kern/fs/vfs/vfspath.c
+        labcodes/lab8/kern/fs/file.c
+        labcodes/lab8/kern/fs/file.h
+        labcodes/lab8/kern/fs/fs.c
+        labcodes/lab8/kern/fs/fs.h
+        labcodes/lab8/kern/fs/iobuf.c
+        labcodes/lab8/kern/fs/iobuf.h
+        labcodes/lab8/kern/fs/sysfile.c
+        labcodes/lab8/kern/fs/sysfile.h
+        labcodes/lab8/kern/init/init.c
+        labcodes/lab8/kern/libs/readline.c
+        labcodes/lab8/kern/libs/stdio.c
+        labcodes/lab8/kern/libs/string.c
+        labcodes/lab8/kern/mm/default_pmm.c
+        labcodes/lab8/kern/mm/default_pmm.h
+        labcodes/lab8/kern/mm/kmalloc.c
+        labcodes/lab8/kern/mm/kmalloc.h
+        labcodes/lab8/kern/mm/memlayout.h
+        labcodes/lab8/kern/mm/mmu.h
+        labcodes/lab8/kern/mm/pmm.c
+        labcodes/lab8/kern/mm/pmm.h
+        labcodes/lab8/kern/mm/swap.c
+        labcodes/lab8/kern/mm/swap.h
+        labcodes/lab8/kern/mm/swap_fifo.c
+        labcodes/lab8/kern/mm/swap_fifo.h
+        labcodes/lab8/kern/mm/vmm.c
+        labcodes/lab8/kern/mm/vmm.h
+        labcodes/lab8/kern/process/proc.c
+        labcodes/lab8/kern/process/proc.h
+        labcodes/lab8/kern/schedule/default_sched.c
+        labcodes/lab8/kern/schedule/default_sched.h
+        labcodes/lab8/kern/schedule/sched.c
+        labcodes/lab8/kern/schedule/sched.h
+        labcodes/lab8/kern/sync/check_sync.c
+        labcodes/lab8/kern/sync/monitor.c
+        labcodes/lab8/kern/sync/monitor.h
+        labcodes/lab8/kern/sync/sem.c
+        labcodes/lab8/kern/sync/sem.h
+        labcodes/lab8/kern/sync/sync.h
+        labcodes/lab8/kern/sync/wait.c
+        labcodes/lab8/kern/sync/wait.h
+        labcodes/lab8/kern/syscall/syscall.c
+        labcodes/lab8/kern/syscall/syscall.h
+        labcodes/lab8/kern/trap/trap.c
+        labcodes/lab8/kern/trap/trap.h
+        labcodes/lab8/libs/atomic.h
+        labcodes/lab8/libs/defs.h
+        labcodes/lab8/libs/dirent.h
+        labcodes/lab8/libs/elf.h
+        labcodes/lab8/libs/error.h
+        labcodes/lab8/libs/hash.c
+        labcodes/lab8/libs/list.h
+        labcodes/lab8/libs/printfmt.c
+        labcodes/lab8/libs/rand.c
+        labcodes/lab8/libs/skew_heap.h
+        labcodes/lab8/libs/stat.h
+        labcodes/lab8/libs/stdarg.h
+        labcodes/lab8/libs/stdio.h
+        labcodes/lab8/libs/stdlib.h
+        labcodes/lab8/libs/string.c
+        labcodes/lab8/libs/string.h
+        labcodes/lab8/libs/unistd.h
+        labcodes/lab8/libs/x86.h
+        labcodes/lab8/tools/mksfs.c
+        labcodes/lab8/tools/sign.c
+        labcodes/lab8/tools/vector.c
+        labcodes/lab8/user/libs/dir.c
+        labcodes/lab8/user/libs/dir.h
+        labcodes/lab8/user/libs/file.c
+        labcodes/lab8/user/libs/file.h
+        labcodes/lab8/user/libs/lock.h
+        labcodes/lab8/user/libs/panic.c
+        labcodes/lab8/user/libs/stdio.c
+        labcodes/lab8/user/libs/syscall.c
+        labcodes/lab8/user/libs/syscall.h
+        labcodes/lab8/user/libs/ulib.c
+        labcodes/lab8/user/libs/ulib.h
+        labcodes/lab8/user/libs/umain.c
+        labcodes/lab8/user/badarg.c
+        labcodes/lab8/user/badsegment.c
+        labcodes/lab8/user/divzero.c
+        labcodes/lab8/user/exit.c
+        labcodes/lab8/user/faultread.c
+        labcodes/lab8/user/faultreadkernel.c
+        labcodes/lab8/user/forktest.c
+        labcodes/lab8/user/forktree.c
+        labcodes/lab8/user/hello.c
+        labcodes/lab8/user/ls.c
+        labcodes/lab8/user/matrix.c
+        labcodes/lab8/user/pgdir.c
+        labcodes/lab8/user/priority.c
+        labcodes/lab8/user/sh.c
+        labcodes/lab8/user/sleep.c
+        labcodes/lab8/user/sleepkill.c
+        labcodes/lab8/user/softint.c
+        labcodes/lab8/user/spin.c
+        labcodes/lab8/user/testbss.c
+        labcodes/lab8/user/waitkill.c
+        labcodes/lab8/user/yield.c)
